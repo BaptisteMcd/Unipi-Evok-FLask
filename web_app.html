@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Projet UNIPI</title>  
+<style>
+  input[type="radio"]:checked + label {
+    background-color: blue;
+    color: white;
+  transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
+  }
+  .parking-spots {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .parking-spot {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  div {
+    display: flex;
+    position: relative;
+  }
+  
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background: red;
+    color: white;
+    border-radius: 10px;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+  }
+  
+  input:checked + label {
+    background: blue;
+  }
+  
+
+
+</style>
+</head>
+<body>
+	<div style="display: inline-block;margin-right: 48px;">
+       <h3>N du vehicule ?</h3>
+       </div>
+       <div style="display: inline-block;">
+       <h3> Kilometrage du vehicule ? </h3>
+       </div>
+	<div>
+		<input type="text" id="vehicle-number" autofocus="autofocus" readonly>
+		<input type="text" id="kilometrage" readonly>
+		<br>
+	</div>
+	<br>
+	<div style="margin-left: 65px;">
+		<button onclick="addNumber(1)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">1</button>
+		<button onclick="addNumber(2)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">2</button>
+                <button onclick="addNumber(3)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">3</button>
+
+	</div>
+	<div style="margin-left: 65px;">
+		
+		<button onclick="addNumber(4)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">4</button>
+                <button onclick="addNumber(5)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">5</button>
+                <button onclick="addNumber(6)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">6</button>
+
+
+	</div>
+	<div style="margin-left: 65px;">
+                <button onclick="addNumber(7)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">7</button>
+                <button onclick="addNumber(8)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">8</button>
+                <button onclick="addNumber(9)" style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">9</button>
+
+     </div>
+	<div style="margin-top: 5px;">
+     
+		<button onclick="deleteNumber()" style="background-color: #F4D03F; color: white; font-size: 16px; padding: 10px 20px;">Supprimer</button>
+                <button onclick="addNumber(0)"  style="background-color: blue; color: white; font-size: 16px; padding: 10px 20px;">0</button>
+                <button onclick="clearNumber()"  style="background-color: red; color: white; font-size: 16px; padding: 10px 20px;">Effacer</button>
+		<button onclick="validateNumber()" style="background-color: green; color: white; font-size: 16px; padding: 10px 20px;">Valider</button>
+          
+	</div>
+
+	<script>
+		let vehicleNumberInput = document.getElementById("vehicle-number");
+		let kilometrageInput = document.getElementById("kilometrage");
+		let focusedInput = null;
+
+		vehicleNumberInput.addEventListener("focus", function() {
+			focusedInput = vehicleNumberInput;
+		});
+
+		kilometrageInput.addEventListener("focus", function() {
+			focusedInput = kilometrageInput;
+		});
+
+		function addNumber(num) {
+			if (focusedInput !== null) {
+				focusedInput.value += num;
+			}
+		}
+
+		function clearNumber() {
+                      if (focusedInput !== null && focusedInput.value.length > 0) {
+				focusedInput.value ="";
+			}
+		}
+
+		function deleteNumber() {
+			if (focusedInput !== null && focusedInput.value.length > 0) {
+				focusedInput.value = focusedInput.value.slice(0, -1);
+			}
+		}
+
+		function validateNumber() {
+			if (vehicleNumberInput.value.length > 0 && kilometrageInput.value.length > 0) {
+        //mettre les variables km et Nvehicule dans des inputs caché du form
+        document.getElementById("kilometrage_form").value = kilometrageInput.value;
+        document.getElementById("vehicule-number_form").value = vehicleNumberInput.value;
+        
+        //envoyer le form
+        document.getElementById("myForm").submit();
+				alert("Vehicle Number " + vehicleNumberInput.value + " and Kilometrage " + kilometrageInput.value + " validated.");
+			} else {
+				alert("Please enter a valid 8-digit vehicle number and kilometrage.");
+			}// action="{{ url_for("test")}}" en dessous lol
+		}
+	</script>
+
+<form  id="myForm"  method="post">
+  <h3>Please choose a parking spot:</h3>
+  <! 2 input hiddens pour les envoyer dans le form -->
+  <input type="hidden" name="kilometrage_form" id="kilometrage_form"> 
+  <input type="hidden" name="vehicule-number_form" id="vehicule-number_form"> 
+  
+  <! première ligne de radio buttons -->
+  <div class="parking-spots" style="margin-left: 170px;"">
+    <div class="parking-spot">
+      <input type="radio" id="spot1" name="spot" value="1" style="display:none;">
+      <label for="spot1">Spot 1</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot2" name="spot" value="2" style="display:none;">
+      <label for="spot2">Spot 2</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot3" name="spot" value="3" style="display:none;">
+      <label for="spot3">Spot 3</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot4" name="spot" value="4" style="display:none;">
+      <label for="spot4">Spot 4</label>
+    </div>
+  </div>
+
+
+  <! deuxieme ligne-->
+
+  <div class="parking-spots" style="margin-top: 10px;">
+    <div class="parking-spot">
+      <input type="radio" id="spot5" name="spot" value="5" style="display:none;">
+      <label for="spot5">Spot 5</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot6" name="spot" value="6" style="display:none;">
+      <label for="spot6">Spot 6</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot7" name="spot" value="7" style="display:none;">
+      <label for="spot7">Spot 7</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot8" name="spot" value="8" style="display:none;">
+      <label for="spot8">Spot 8</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot9" name="spot" value="9" style="display:none;">
+      <label for="spot9">Spot 9</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot10" name="spot" value="10" style="display:none;">
+      <label for="spot10">Spot 10</label>
+    </div>
+    <div class="parking-spot">
+      <input type="radio" id="spot11" name="spot" value="11" style="display:none;">
+      <label for="spot11">Spot 11</label>
+    </div>
+  </div>
+ 
+</form>
+
+
+</body>
+</html>

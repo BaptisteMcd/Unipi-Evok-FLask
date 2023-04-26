@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Projet UNIPI</title>  
+<style>
+  input[type="radio"]:checked + label {
+    background-color: blue;
+    color: white;
+  transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
+  }
+  .parking-spots {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .parking-spot {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  div {
+    display: flex;
+    position: relative;
+  }
+  
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background: red;
+    color: white;
+    border-radius: 10px;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+  }
+  
+  input:checked + label {
+    background: blue;
+  }
+  
+
+
+</style>
+</head>
+<body>
+	<div style="display: inline-block;margin-right: 48px;">
+      <h3>N du vehicule  : {{ hvehicule_number }}</h3>
+      </div>
+      <div style="display: inline-block;margin-right: 48px;">
+      <h3> Kilometrage du vehicule : {{ hkilometrage }} </h3>
+      </div>
+      <div style="display: inline-block;margin-right: 48px;">
+      <h3> Place de parking : {{ hparkingspot }} </h3>
+      </div>
+	<br>
+
+	<script>
+		function valider() {
+        //envoyer le form
+        document.getElementById("bon").value = true;
+        document.getElementById("myForm").submit();
+			}// action="{{ url_for("test")}}" en dessous lol
+
+    function recommencer() {
+      //envoyer le form
+      document.getElementById("bon").value = false;
+      document.getElementById("myForm").submit();
+    }// action="{{ url_for("test")}}" en dessous lol
+	</script>
+
+<form  id="myForm"  method="post">
+  <h3>Les donnees sont-elles correctes ?</h3>
+  <input type="hidden" name="bon" id="bon">
+</form>
+
+</div>
+<button onclick="valider()" style="background-color: green; color: white; font-size: 16px; padding: 10px 20px;">Valider</button>
+<button onclick="recommencer()" style="background-color: red; color: white; font-size: 16px; padding: 10px 20px;">Recommencer</button>
+</div>
+
+</body>
+</html>
